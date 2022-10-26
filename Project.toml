@@ -1,0 +1,5 @@
+name = "examples-and-problems"
+authors = ["Daniel S. Kirschen", "Lane D. Smith"]
+
+[deps]
+PowerSystems = "bcd98974-b02a-5e2f-9ee0-a103f5c450dd"
