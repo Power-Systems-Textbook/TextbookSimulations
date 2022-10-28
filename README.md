@@ -19,6 +19,12 @@ sufficient. If you do not have Python installed, the latest version of Python 3 
 installed [here](https://www.python.org/downloads/). Make sure that Python is added to your 
 PATH.
 
+    **NOTE:** With Python 3.11.0 being released very recently, wheels are not available for 
+    all of the libraries needed to set up the Jupyter notebook interface. Therefore, for 
+    new installations, we recommend installing the latest version of Python 3.10. For 
+    existing installations, we anticipate other minor versions of Python 3 to be sufficient 
+    for operating this workflow.
+
 2. **Install Jupyter notebooks.** Open command line or terminal and run the following:
 
     ```sh
@@ -35,7 +41,8 @@ PATH.
 
 3. **Install Julia.** To be compatible with `PowerSystems.jl`, the installed version of 
 Julia must be at least version 1.6 or greater. Julia can be installed for different 
-operating systems [here](https://julialang.org/downloads/).
+operating systems [here](https://julialang.org/downloads/). Make sure that Julia is added 
+to your PATH.
 
 4. **Install the IJulia package.** The `IJulia` package is required to ensure that the 
 Julia kernel is accessible in Jupyter notebooks. To install the `IJulia` package, open the 
