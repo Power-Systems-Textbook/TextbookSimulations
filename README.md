@@ -1,11 +1,11 @@
-# examples-and-problems
+# TextbookSimulations
 Examples and problems accompanying Daniel Kirschen's Power Systems Textbook
 
 ## Purpose
 This repository contains Jupyter notebooks that allow for interactive exploration into 
 selected examples and problems included in Daniel Kirschen's Power Systems textbook. These 
-notebooks use the National Renewable Energy Laboratory's 
-[PowerSystems.jl](https://github.com/NREL-SIIP/PowerSystems.jl) package for power systems 
+notebooks use Los Alamos National Laboratory's 
+[PowerModels.jl](https://github.com/lanl-ansi/PowerModels.jl) package for power systems 
 simulation and computation. This repository also contains sample data to accompany the 
 selected examples and problems included in the textbook.
 
@@ -57,13 +57,13 @@ package manager mode, and run the following:
 the repository as follows:
 
     ```sh
-    git clone https://github.com/Power-Systems-Textbook/examples-and-problems.git
+    git clone https://github.com/Power-Systems-Textbook/TextbookSimulations.git
     ```
     
     If you do not have Git installed on your machine, you can install it by following 
     instructions [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). 
     Alternatively, a .zip file of the repository can be downloaded 
-    [here](https://github.com/Power-Systems-Textbook/examples-and-problems).
+    [here](https://github.com/Power-Systems-Textbook/TextbookSimulations).
 
 6. **Activate and instantiate the project environment.** Using the Julia REPL, navigate to 
 the local directory in which this repository is downloaded. Type `]` to open the Julia 
