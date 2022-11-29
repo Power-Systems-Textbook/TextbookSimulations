@@ -1,8 +1,9 @@
-name = "examples-and-problems"
+name = "TextbookSimulations"
 authors = ["Daniel S. Kirschen", "Lane D. Smith"]
 
 [deps]
-PowerSystems = "bcd98974-b02a-5e2f-9ee0-a103f5c450dd"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+PowerModels = "c36e90e8-916a-50a6-bd94-075b64ef4655"
 
 [compat]
 julia = "^1.6"
