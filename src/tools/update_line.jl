@@ -1,4 +1,9 @@
-function change_line_resistance!(new_r, bus_from, bus_to, network_data)
+function change_line_resistance!(
+    new_r::Float64,
+    bus_from::Int64,
+    bus_to::Int64,
+    network_data::Dict{String,Any},
+)
     # Determine the user-specified line
     l = access_specified_line(bus_from, bus_to, network_data)
 
@@ -6,7 +11,12 @@ function change_line_resistance!(new_r, bus_from, bus_to, network_data)
     network_data["branch"][l]["br_r"] = new_r
 end
 
-function change_line_reactance!(new_x, bus_from, bus_to, network_data)
+function change_line_reactance!(
+    new_x::Float64,
+    bus_from::Int64,
+    bus_to::Int64,
+    network_data::Dict{String,Any},
+)
     # Determine the user-specified line
     l = access_specified_line(bus_from, bus_to, network_data)
 
@@ -14,7 +24,12 @@ function change_line_reactance!(new_x, bus_from, bus_to, network_data)
     network_data["branch"][l]["br_x"] = new_x
 end
 
-function change_line_susceptance!(new_b, bus_from, bus_to, network_data)
+function change_line_susceptance!(
+    new_b::Float64,
+    bus_from::Int64,
+    bus_to::Int64,
+    network_data::Dict{String,Any},
+)
     # Determine the user-specified line
     l = access_specified_line(bus_from, bus_to, network_data)
 

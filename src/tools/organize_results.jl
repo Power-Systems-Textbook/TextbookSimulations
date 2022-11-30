@@ -1,4 +1,7 @@
-function organize_bus_results(result, network_data)
+function organize_bus_results(
+    result::Dict{String,Any},
+    network_data::Dict{String,Any},
+)::DataFrames.DataFrame
     # Find the real and reactive power demand at each bus
     pd_by_bus = zeros(length(network_data["bus"]))
     qd_by_bus = zeros(length(network_data["bus"]))
@@ -42,7 +45,10 @@ function organize_bus_results(result, network_data)
     return bus_data
 end
 
-function organize_line_results(result, network_data)
+function organize_line_results(
+    result::Dict{String,Any},
+    network_data::Dict{String,Any},
+)::DataFrames.DataFrame
     # Create DataFrame of the relevant line-related solutions
     line_data = DataFrame(
         "Bus i" => [

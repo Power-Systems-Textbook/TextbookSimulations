@@ -1,4 +1,8 @@
-function access_specified_line(bus_from, bus_to, network_data)
+function access_specified_line(
+    bus_from::Int64,
+    bus_to::Int64,
+    network_data::Dict{String,Any},
+)::String
     # Look up the specified line
     for l in keys(network_data["branch"])
         if (
@@ -24,7 +28,7 @@ function access_specified_line(bus_from, bus_to, network_data)
     )
 end
 
-function access_specified_load(bus, network_data)
+function access_specified_load(bus::Int64, network_data::Dict{String,Any})::String
     # Look up the specified load
     for d in keys(network_data["load"])
         if network_data["load"][d]["load_bus"] == bus
@@ -42,7 +46,7 @@ function access_specified_load(bus, network_data)
     )
 end
 
-function access_specified_generator(bus, network_data)
+function access_specified_generator(bus::Int64, network_data::Dict{String,Any})::String
     # Look up the specified generator
     for g in keys(network_data["gen"])
         if network_data["gen"][g]["gen_bus"] == bus
