@@ -27,7 +27,7 @@ end
 function access_specified_load(bus, network_data)
     # Look up the specified load
     for d in keys(network_data["load"])
-        if network_data["load"][d]["source_id"] == ["bus", bus]
+        if network_data["load"][d]["load_bus"] == bus
             return d
         end
     end
