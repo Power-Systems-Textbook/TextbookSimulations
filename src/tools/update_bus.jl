@@ -3,11 +3,25 @@ function change_bus_real_power_demand!(
     bus::Int64,
     network_data::Dict{String,Any},
 )
+    # Check if the specified bus exists
+    check_bus_existence(bus, network_data)
+
     # Determine the user-specified load
     d = access_specified_load(bus, network_data)
 
+    # Raise an error if the specified load does not exist
+    if isnothing(d)
+        throw(
+            ErrorException(
+                "A load does not exist at Bus " *
+                string(bus) *
+                ". Please try again or create a new load.",
+            ),
+        )
+    end
+
     # Update the real-power demand, in per-unit
-    network_data["load"][d]["pd"] = new_pd
+    network_data["load"][string(d)]["pd"] = new_pd
 end
 
 function change_bus_reactive_power_demand!(
@@ -15,11 +29,25 @@ function change_bus_reactive_power_demand!(
     bus::Int64,
     network_data::Dict{String,Any},
 )
+    # Check if the specified bus exists
+    check_bus_existence(bus, network_data)
+
     # Determine the user-specified load
     d = access_specified_load(bus, network_data)
 
+    # Raise an error if the specified load does not exist
+    if isnothing(d)
+        throw(
+            ErrorException(
+                "A load does not exist at Bus " *
+                string(bus) *
+                ". Please try again or create a new load.",
+            ),
+        )
+    end
+
     # Update the reactive-power demand, in per-unit
-    network_data["load"][d]["qd"] = new_qd
+    network_data["load"][string(d)]["qd"] = new_qd
 end
 
 function change_bus_real_power_generation!(
@@ -27,11 +55,25 @@ function change_bus_real_power_generation!(
     bus::Int64,
     network_data::Dict{String,Any},
 )
+    # Check if the specified bus exists
+    check_bus_existence(bus, network_data)
+
     # Determine the user-specified generator
     g = access_specified_generator(bus, network_data)
 
+    # Raise an error if the specified generator does not exist
+    if isnothing(g)
+        throw(
+            ErrorException(
+                "A generator does not exist at Bus " *
+                string(bus) *
+                ". Please try again or create a new generator.",
+            ),
+        )
+    end
+
     # Update the real-power generation, in per-unit
-    network_data["gen"][g]["pg"] = new_pg
+    network_data["gen"][string(g)]["pg"] = new_pg
 end
 
 function change_bus_voltage_magnitude!(
@@ -39,13 +81,27 @@ function change_bus_voltage_magnitude!(
     bus::Int64,
     network_data::Dict{String,Any},
 )
+    # Check if the specified bus exists
+    check_bus_existence(bus, network_data)
+
     # Check if the bus is a slack bus or a PV bus
     if network_data["bus"][string(bus)]["bus_type"] in (2, 3)
         # Determine the generator id at the user-specified bus
         g = access_specified_generator(bus, network_data)
 
+        # Raise an error if the specified generator does not exist
+        if isnothing(g)
+            throw(
+                ErrorException(
+                    "A generator does not exist at Bus " *
+                    string(bus) *
+                    ". Please try again or create a new generator.",
+                ),
+            )
+        end
+
         # Update the voltage magnitude of the user-specified bus's generator, in per-unit
-        network_data["gen"][g]["vg"] = new_vm
+        network_data["gen"][string(g)]["vg"] = new_vm
     end
 
     # Update the voltage magnitude at the user-specified bus, in per-unit
@@ -57,6 +113,9 @@ function change_bus_voltage_angle!(
     bus::Int64,
     network_data::Dict{String,Any},
 )
+    # Check if the specified bus exists
+    check_bus_existence(bus, network_data)
+
     # Assuming the voltage angle is provided in degrees, convert to radians
     new_va = new_va * π / 180
 
