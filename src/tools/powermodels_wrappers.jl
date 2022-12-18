@@ -4,6 +4,9 @@ function load_network_data(filepath::String, case_name::String)Dict{String,Any}
 end
 
 function compute_ac_pf(network_data::Dict{String,Any})::Dict{String,Any}
+    # Prior to computation, check if any buses are stranded
+    check_for_stranded_buses(network_data)
+
     # Solve the AC power-flow model using PowerModels
     result = PowerModels.compute_ac_pf(network_data)
 
