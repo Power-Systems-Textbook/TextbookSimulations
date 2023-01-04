@@ -99,7 +99,7 @@ end
 
 function save_network_data(
     network_data::Dict{String,Any},
-    filepath::String,
+    file_path::String,
     case_name::String,
     file_type::String,
     overwrite_file::Bool=false,
@@ -112,14 +112,14 @@ function save_network_data(
     end
 
     # Check if a file of the same name already exists in the provided file path
-    if isfile(joinpath(filepath, case_name * file_type))
+    if isfile(joinpath(file_path, case_name * file_type))
         # Overwrite the existing file if allowed by the user; otherwise, throw an error
         if overwrite_file
             # Update the case name in the network data
             network_data["name"] = case_name
 
             # Save the network data as the specified file type in the specified file path
-            PowerModels.export_file(joinpath(filepath, case_name * file_type), network_data)
+            PowerModels.export_file(joinpath(file_path, case_name * file_type), network_data)
         else
             throw(
                 ErrorException(
@@ -134,6 +134,6 @@ function save_network_data(
         network_data["name"] = case_name
 
         # Save the network data as the specified file type in the specified file path
-        PowerModels.export_file(joinpath(filepath, case_name * file_type), network_data)
+        PowerModels.export_file(joinpath(file_path, case_name * file_type), network_data)
     end
 end

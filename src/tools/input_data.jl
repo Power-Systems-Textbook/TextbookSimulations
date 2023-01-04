@@ -1,5 +1,5 @@
 function load_network_data(
-    filepath::String,
+    file_path::String,
     case_name::String,
     file_type::String,
 )::Dict{String,Any}
@@ -11,7 +11,7 @@ function load_network_data(
     end
 
     # Return the network data from the user-specified .m file
-    return PowerModels.parse_file(joinpath(filepath, case_name * file_type))
+    return PowerModels.parse_file(joinpath(file_path, case_name * file_type))
 end
 
 function create_blank_network(
