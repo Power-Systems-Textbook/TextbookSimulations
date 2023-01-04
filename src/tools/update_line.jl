@@ -1,5 +1,5 @@
 function change_line_resistance!(
-    new_r::Float64,
+    new_r::Union{Float64,Int64},
     bus_from::Int64,
     bus_to::Int64,
     network_data::Dict{String,Any},
@@ -26,11 +26,11 @@ function change_line_resistance!(
     end
 
     # Update the branch resistance
-    network_data["branch"][string(l)]["br_r"] = new_r
+    network_data["branch"][string(l)]["br_r"] = float(new_r)
 end
 
 function change_line_reactance!(
-    new_x::Float64,
+    new_x::Union{Float64,Int64},
     bus_from::Int64,
     bus_to::Int64,
     network_data::Dict{String,Any},
@@ -57,11 +57,11 @@ function change_line_reactance!(
     end
 
     # Update the branch reactance
-    network_data["branch"][string(l)]["br_x"] = new_x
+    network_data["branch"][string(l)]["br_x"] = float(new_x)
 end
 
 function change_line_susceptance!(
-    new_b::Float64,
+    new_b::Union{Float64,Int64},
     bus_from::Int64,
     bus_to::Int64,
     network_data::Dict{String,Any},

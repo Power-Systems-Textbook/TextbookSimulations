@@ -1,5 +1,5 @@
 function change_bus_real_power_demand!(
-    new_pd::Float64,
+    new_pd::Union{Float64,Int64},
     bus::Int64,
     network_data::Dict{String,Any},
 )
@@ -21,11 +21,11 @@ function change_bus_real_power_demand!(
     end
 
     # Update the real-power demand, in per-unit
-    network_data["load"][string(d)]["pd"] = new_pd
+    network_data["load"][string(d)]["pd"] = float(new_pd)
 end
 
 function change_bus_reactive_power_demand!(
-    new_qd::Float64,
+    new_qd::Union{Float64,Int64},
     bus::Int64,
     network_data::Dict{String,Any},
 )
@@ -47,11 +47,11 @@ function change_bus_reactive_power_demand!(
     end
 
     # Update the reactive-power demand, in per-unit
-    network_data["load"][string(d)]["qd"] = new_qd
+    network_data["load"][string(d)]["qd"] = float(new_qd)
 end
 
 function change_bus_real_power_generation!(
-    new_pg::Float64,
+    new_pg::Union{Float64,Int64},
     bus::Int64,
     network_data::Dict{String,Any},
 )
@@ -73,11 +73,11 @@ function change_bus_real_power_generation!(
     end
 
     # Update the real-power generation, in per-unit
-    network_data["gen"][string(g)]["pg"] = new_pg
+    network_data["gen"][string(g)]["pg"] = float(new_pg)
 end
 
 function change_bus_voltage_magnitude!(
-    new_vm::Float64,
+    new_vm::Union{Float64,Int64},
     bus::Int64,
     network_data::Dict{String,Any},
 )
@@ -101,15 +101,15 @@ function change_bus_voltage_magnitude!(
         end
 
         # Update the voltage magnitude of the user-specified bus's generator, in per-unit
-        network_data["gen"][string(g)]["vg"] = new_vm
+        network_data["gen"][string(g)]["vg"] = float(new_vm)
     end
 
     # Update the voltage magnitude at the user-specified bus, in per-unit
-    network_data["bus"][string(bus)]["vm"] = new_vm
+    network_data["bus"][string(bus)]["vm"] = float(new_vm)
 end
 
 function change_bus_voltage_angle!(
-    new_va::Float64,
+    new_va::Union{Float64,Int64},
     bus::Int64,
     network_data::Dict{String,Any},
 )
@@ -120,5 +120,5 @@ function change_bus_voltage_angle!(
     new_va = new_va * π / 180
 
     # Update the voltage angle at the user-specified bus, in radians
-    network_data["bus"][string(bus)]["va"] = new_va
+    network_data["bus"][string(bus)]["va"] = float(new_va)
 end
