@@ -5,11 +5,12 @@ using PowerModels
 
 # Include the following functionality
 include("tools/helpers.jl")
-include("tools/powermodels_wrappers.jl")
+include("tools/input_data.jl")
 include("tools/update_line.jl")
 include("tools/update_bus.jl")
 include("tools/create_components.jl")
 include("tools/delete_components.jl")
+include("tools/solve_power_flow.jl")
 include("tools/output_data.jl")
 
 # Export functionality from helpers.jl
