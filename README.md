@@ -39,7 +39,7 @@ PATH.
     jupyter notebook
     ```
 
-3. **Install Julia.** To be compatible with `PowerSystems.jl`, the installed version of 
+3. **Install Julia.** To be compatible with `PowerModels.jl`, the installed version of 
 Julia must be at least version 1.6 or greater. Julia can be installed for different 
 operating systems [here](https://julialang.org/downloads/). Make sure that Julia is added 
 to your PATH.
