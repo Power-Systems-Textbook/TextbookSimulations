@@ -114,7 +114,7 @@ function create_generator!(
     startup_cost::Union{Float64,Int64}=0.0,
     shutdown_cost::Union{Float64,Int64}=0.0,
     num_cost_points::Int64=3,
-    cost::Vector{Union{Float64,Int64}}=[0.0, 0.0, 0.0],
+    cost::Union{Vector{Float64},Nothing}=nothing,
 )
     # Check if the specified bus exists
     check_bus_existence(bus, network_data)
@@ -215,13 +215,15 @@ function create_generator!(
     end
 
     # Check that the cost vector has the specified number of values
-    if length(cost) != num_cost_points
-        throw(
-            ErrorException(
-                "The provided number of cost values does not match the specified " *
-                "number. Please try again.",
-            ),
-        )
+    if !isnothing(cost)
+        if length(cost) != num_cost_points
+            throw(
+                ErrorException(
+                    "The provided number of cost values does not match the specified " *
+                    "number. Please try again.",
+                ),
+            )
+        end
     end
 
     # Check that the specified cost model is valid
@@ -231,7 +233,7 @@ function create_generator!(
 
     # Add the new generator to the network data
     new_gen_num = length(network_data["gen"]) + 1
-    network_data["gen"][string(new_load_num)] = Dict{String,Any}(
+    network_data["gen"][string(new_gen_num)] = Dict{String,Any}(
         "ncost" => num_cost_points,
         "qc1max" => float(qc1max),
         "pg" => float(pg),
@@ -249,7 +251,7 @@ function create_generator!(
         "source_id" => ["gen", new_gen_num],
         "pc2" => float(pc2),
         "index" => new_gen_num,
-        "cost" => cost == zeros(num_cost_points) ? Vector{Float64}() : cost,
+        "cost" => isnothing(cost) ? Vector{Float64}() : cost,
         "qmax" => float(qmax),
         "gen_status" => gen_status,
         "qmin" => float(qmin),
