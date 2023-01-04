@@ -96,3 +96,44 @@ function organize_line_results(
     # Return the DataFrame
     return line_data
 end
+
+function save_network_data(
+    network_data::Dict{String,Any},
+    filepath::String,
+    case_name::String,
+    file_type::String,
+    overwrite_file::Bool=false,
+)
+    # Check that an appropriate file type has been provided
+    if !(file_type in (".m", ".json"))
+        throw(
+            ErrorException(file_type * " is not an accepted file type. Please try again."),
+        )
+    end
+
+    # Check if a file of the same name already exists in the provided file path
+    if isfile(joinpath(filepath, case_name * file_type))
+        # Overwrite the existing file if allowed by the user; otherwise, throw an error
+        if overwrite_file
+            # Update the case name in the network data
+            network_data["name"] = case_name
+
+            # Save the network data as the specified file type in the specified file path
+            PowerModels.export_file(joinpath(filepath, case_name * file_type), network_data)
+        else
+            throw(
+                ErrorException(
+                    "A file with the same case name already exists in the specified file " *
+                    "path. Please allow the file to be overwritten or choose a new case " *
+                    "name.",
+                ),
+            )
+        end
+    else
+        # Update the case name in the network data
+        network_data["name"] = case_name
+
+        # Save the network data as the specified file type in the specified file path
+        PowerModels.export_file(joinpath(filepath, case_name * file_type), network_data)
+    end
+end
