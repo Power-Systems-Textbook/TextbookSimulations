@@ -1,5 +1,6 @@
 module TextbookSimulations
 
+using CSV
 using DataFrames
 using PowerModels
 
