@@ -1,3 +1,13 @@
+"""
+    change_line_resistance!(
+        new_r::Union{Float64,Int64},
+        bus_from::Int64,
+        bus_to::Int64,
+        network_data::Dict{String,Any},
+    )
+
+Changes the resistance (in per-unit) of an existing line between two user-specified buses.
+"""
 function change_line_resistance!(
     new_r::Union{Float64,Int64},
     bus_from::Int64,
@@ -29,6 +39,16 @@ function change_line_resistance!(
     network_data["branch"][string(l)]["br_r"] = float(new_r)
 end
 
+"""
+    change_line_reactance!(
+        new_x::Union{Float64,Int64},
+        bus_from::Int64,
+        bus_to::Int64,
+        network_data::Dict{String,Any},
+    )
+
+Changes the reactance (in per-unit) of an existing line between two user-specified buses.
+"""
 function change_line_reactance!(
     new_x::Union{Float64,Int64},
     bus_from::Int64,
@@ -60,6 +80,17 @@ function change_line_reactance!(
     network_data["branch"][string(l)]["br_x"] = float(new_x)
 end
 
+"""
+    change_line_susceptance!(
+        new_b::Union{Float64,Int64},
+        bus_from::Int64,
+        bus_to::Int64,
+        network_data::Dict{String,Any},
+    )
+
+Changes the total shunt susceptance (in per-unit) of an existing line between two user-
+specified buses.
+"""
 function change_line_susceptance!(
     new_b::Union{Float64,Int64},
     bus_from::Int64,

@@ -1,3 +1,15 @@
+"""
+    organize_bus_results(
+        result::Dict{String,Any},
+        network_data::Dict{String,Any};
+        save_data::Bool=false,
+        file_path::Union{String,Nothing}=nothing,
+    )::DataFrames.DataFrame
+
+Organizes the bus-level results from the power-flow solution to present relevant voltage 
+and power information. Users can indicate if they would like to save this data to a .csv 
+file.
+"""
 function organize_bus_results(
     result::Dict{String,Any},
     network_data::Dict{String,Any};
@@ -61,6 +73,17 @@ function organize_bus_results(
     return bus_data
 end
 
+"""
+    organize_line_results(
+        result::Dict{String,Any},
+        network_data::Dict{String,Any};
+        save_data::Bool=false,
+        file_path::Union{String,Nothing}=nothing,
+    )::DataFrames.DataFrame
+
+Organizes the line-level results from the power-flow solution to present relevant line flow 
+information. Users can indicate if they would like to save this data to a .csv file.
+"""
 function organize_line_results(
     result::Dict{String,Any},
     network_data::Dict{String,Any};
@@ -129,6 +152,20 @@ function organize_line_results(
     return line_data
 end
 
+"""
+    save_network_data(
+        network_data::Dict{String,Any},
+        file_path::String,
+        case_name::String,
+        file_type::String,
+        overwrite_file::Bool=false,
+    )
+
+Creates a wrapper around functionality from PowerModels.jl to allow the network data Dict 
+to be saved to a .m or a .json file. Checks to see if a file with the same name already 
+exists, and gives users the ability to specify whether or not they would like preexisting 
+files to be overwritten.
+"""
 function save_network_data(
     network_data::Dict{String,Any},
     file_path::String,

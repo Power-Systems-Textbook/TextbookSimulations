@@ -1,3 +1,9 @@
+"""
+    check_bus_existence(bus::Int64, network_data::Dict{String,Any})
+
+Checks that a user-specified exists within the network data Dict. Throws an error if the 
+specified bus does not exist.
+"""
 function check_bus_existence(bus::Int64, network_data::Dict{String,Any})
     # Throw an error if the bus doesn't exist; otherwise, do nothing
     if !(string(bus) in keys(network_data["bus"]))
@@ -5,6 +11,16 @@ function check_bus_existence(bus::Int64, network_data::Dict{String,Any})
     end
 end
 
+"""
+    access_specified_line(
+        bus_from::Int64,
+        bus_to::Int64,
+        network_data::Dict{String,Any},
+    )::Union{Int64,Nothing}
+
+Returns the line ID of the line between two user-specified buses. Returns "nothing" if the 
+line does not exist (i.e., there is not line between the user-specified buses).
+"""
 function access_specified_line(
     bus_from::Int64,
     bus_to::Int64,
@@ -27,6 +43,15 @@ function access_specified_line(
     return nothing
 end
 
+"""
+    access_specified_load(
+        bus::Int64,
+        network_data::Dict{String,Any},
+    )::Union{Int64,Nothing}
+
+Returns the load ID of the load associated with the user-specified bus. Returns "nothing" 
+if the load does not exist (i.e., there is no load at the user-specified bus).
+"""
 function access_specified_load(
     bus::Int64,
     network_data::Dict{String,Any},
@@ -42,6 +67,16 @@ function access_specified_load(
     return nothing
 end
 
+"""
+    access_specified_generator(
+        bus::Int64,
+        network_data::Dict{String,Any},
+    )::Union{Int64,Nothing}
+
+Returns the generator ID of the generator associated with the user-specified bus. Returns 
+"nothing" if the generator does not exist (i.e., there is no generator at the user-
+specified bus).
+"""
 function access_specified_generator(
     bus::Int64,
     network_data::Dict{String,Any},
@@ -57,6 +92,12 @@ function access_specified_generator(
     return nothing
 end
 
+"""
+    check_generator_for_slack_and_pv_buses(network_data::Dict{String,Any})
+
+Checks that there are generators at the slack and PV buses. Throws an error if a slack or 
+PV bus is found to not have a generator.
+"""
 function check_generator_for_slack_and_pv_buses(network_data::Dict{String,Any})
     # Iterate through the buses
     for b in keys(network_data["bus"])
@@ -83,6 +124,12 @@ function check_generator_for_slack_and_pv_buses(network_data::Dict{String,Any})
     end
 end
 
+"""
+    check_if_bus_is_stranded(bus::Int64, network_data::Dict{String,Any})
+
+Checks if a specified bus is stranded (i.e., the bus is not connected to the other buses 
+via any branches). Raises a warning if the specified bus is found to be stranded.
+"""
 function check_if_bus_is_stranded(bus::Int64, network_data::Dict{String,Any})
     # Check if the specified bus exists
     check_bus_existence(bus, network_data)
@@ -107,6 +154,13 @@ function check_if_bus_is_stranded(bus::Int64, network_data::Dict{String,Any})
     end
 end
 
+"""
+    check_for_stranded_buses(network_data::Dict{String,Any})
+
+Checks all buses in the network data Dict to see if there are any stranded buses (i.e., 
+buses that are not connected to the other buses via any branches). Throws an error if a 
+stranded bus is located.
+"""
 function check_for_stranded_buses(network_data::Dict{String,Any})
     # Iterate through line data to obtain a set of all bus connections
     connected_buses = Set()

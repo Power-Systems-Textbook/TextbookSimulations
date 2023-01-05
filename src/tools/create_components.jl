@@ -1,3 +1,22 @@
+"""
+    create_bus!(
+        network_data::Dict{String,Any};
+        bus_type::String,
+        vm::Union{Float64,Int64},
+        va::Union{Float64,Int64},
+        base_kv::Union{Float64,Int64},
+        vmin::Union{Float64,Int64},
+        vmax::Union{Float64,Int64},
+        zone::Int64=1,
+        area::Int64=1,
+    )
+
+Creates a bus in the network data Dict. Users specify the bus type, voltage magnitude (in 
+per-unit), voltage angle (in degrees), voltage base (in kV), minimum voltage magnitude (in 
+per-unit), and maximum voltage magnitude (in per-unit). Users can specify the loss zone and 
+area number for the bus, though these are legacy MATPOWER parameters and are not necessary 
+for this simulation; as such, those parameters are defaulted to insignificant values.
+"""
 function create_bus!(
     network_data::Dict{String,Any};
     bus_type::String,
@@ -45,6 +64,20 @@ function create_bus!(
     )
 end
 
+"""
+    create_load!(
+        network_data::Dict{String,Any};
+        bus::Int,
+        pd::Union{Float64,Int64},
+        qd::Union{Float64,Int64},
+        status::Int64=1,
+    )
+
+Adds a load to an existing bus that does not already have a load. Users specify the bus 
+number, real power demand (in MW), and reactive power demand (in MVAR). Users can also 
+specify the status of the load (i.e., whether it is connected or not), though this 
+parameter is defaulted to assuming that loads are connected.
+"""
 function create_load!(
     network_data::Dict{String,Any};
     bus::Int,
@@ -87,6 +120,56 @@ function create_load!(
     )
 end
 
+"""
+    create_generator!(
+        network_data::Dict{String,Any};
+        bus::Int,
+        vg::Union{Float64,Int64},
+        pg::Union{Float64,Int64},
+        qg::Union{Float64,Int64},
+        mbase::Union{Float64,Int64,Nothing}=nothing,
+        pmin::Union{Float64,Int64},
+        pmax::Union{Float64,Int64},
+        qmin::Union{Float64,Int64},
+        qmax::Union{Float64,Int64},
+        pc1::Union{Float64,Int64}=0.0,
+        pc2::Union{Float64,Int64}=0.0,
+        qc1min::Union{Float64,Int64}=0.0,
+        qc1max::Union{Float64,Int64}=0.0,
+        qc2min::Union{Float64,Int64}=0.0,
+        qc2max::Union{Float64,Int64}=0.0,
+        gen_status::Int64=1,
+        ramp_agc::Union{Float64,Int64}=0.0,
+        ramp_10::Union{Float64,Int64}=0.0,
+        ramp_30::Union{Float64,Int64}=0.0,
+        ramp_q::Union{Float64,Int64}=0.0,
+        apf::Union{Float64,Int64}=0.0,
+        cost_model::Int64=2,
+        startup_cost::Union{Float64,Int64}=0.0,
+        shutdown_cost::Union{Float64,Int64}=0.0,
+        num_cost_points::Int64=3,
+        cost::Union{Vector{Float64},Nothing}=nothing,
+    )
+
+Adds a generator to an existing bus that does not already have a generator. Users specify 
+the bus number, voltage magnitude setpoint (in per-unit), real power output (in MW), 
+reactive power output (in MVAR), power base of the machine (in MVA), and minimum and 
+maximum real and reactive power outputs (in MW and MVAR, respectively).
+
+The generator model also takes many inputs that are either used in optimal power flow 
+problems, which is outside the scope of this tool, or are legacy MATPOWER parameters. These 
+parameters are defaulted with insignificant values so that users do not need to be bothered 
+by them. However, to maintain flexibility, users can provide values to those parameters, if 
+desired. The additional parameters are the lower and upper real power outputs of the PQ 
+capability curve (in MW); the corresponding minimum and maximum reactive power outputs on 
+the PQ capability curve (in MVAR); ramp rates for AGC, 10-minute reserves, 30-minute 
+reserves, and reactive power; the generator status (i.e., whether it is on or off); the 
+area participation factor (APF); the cost model (where "1" indicates piecewise-linear 
+linear cost curves and "2" indicates polynomial cost curves); the startup and shutdown 
+costs; the number of breakpoints if a piecewise-linear cost curve or the number of 
+coefficients if a polynomial cost curve; and the costs associated with the breakpoints of 
+the piecewise-linear cost curve or the cost coefficients of the polynomial cost curve.
+"""
 function create_generator!(
     network_data::Dict{String,Any};
     bus::Int,
@@ -265,6 +348,37 @@ function create_generator!(
     )
 end
 
+"""
+    create_line!(
+        network_data::Dict{String,Any};
+        bus_from::Int64,
+        bus_to::Int64,
+        r::Union{Float64,Int64},
+        x::Union{Float64,Int64},
+        b::Union{Float64,Int64},
+        g::Union{Float64,Int64}=0.0,
+        line_status::Int64=1,
+        angmin::Union{Float64,Int64}=-60.0,
+        angmax::Union{Float64,Int64}=60.0,
+        transformer_enabled::Bool=false,
+        transformer_tap_ratio::Union{Float64,Int64}=1.0,
+        transformer_phase_shift::Union{Float64,Int64}=0.0,
+    )
+
+Creates a branch between two existing buses that do not already have a line between them. 
+Users specify the "from" and "to" buses; the line's resistance, reactance, shunt 
+susceptance, and shunt conductance (all in per-unit); the minimum and maximum angle 
+differences (in degrees); and the branch status (i.e., whether the buses are connected or 
+not). The minimum and maximum angle differences are defaulted to their minimum and maximum 
+values, respectively, and the branch status is defaulted to the line being active. The 
+transmission line model that is used is that of the equivalent π model.
+
+The branch can also be treated as a tap-changing or phase-shifting transformer. Users can 
+specify whether a tap-changing/phase-shifting transformer is enabled, the transformer off-
+nominal turns ratio (where the taps are at the "from" bus and the impedance is at the "to" 
+bus), and the transformer phase shift angle (in degrees, where positive values indicate a 
+delay). The tap-changing/phase-shifting transformer defaults to not being enabled.
+"""
 function create_line!(
     network_data::Dict{String,Any};
     bus_from::Int64,

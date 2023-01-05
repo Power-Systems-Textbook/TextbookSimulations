@@ -1,3 +1,18 @@
+"""
+    delete_bus!(
+        bus::Int64,
+        network_data::Dict{String,Any};
+        auto_delete_load::Bool=false,
+        auto_delete_generator::Bool=false,
+        auto_delete_lines::Bool=false,
+    )
+
+Deletes a user-specified bus that is located within the network data Dict. Users can 
+indicate whether or not they would like loads, generators, and lines associated with the 
+bus to also be deleted prior to deleting the bus. If users do not take advantage of the 
+associated loads, generators, and lines being deleted automatically, they will need to 
+delete them manually before the bus can be deleted.
+"""
 function delete_bus!(
     bus::Int64,
     network_data::Dict{String,Any};
@@ -109,6 +124,11 @@ function delete_bus!(
     end
 end
 
+"""
+    delete_load!(bus::Int64, network_data::Dict{String,Any})
+
+Deletes the load associated with a user-specified bus.
+"""
 function delete_load!(bus::Int64, network_data::Dict{String,Any})
     # Check if the specified bus exists
     check_bus_existence(bus, network_data)
@@ -137,6 +157,11 @@ function delete_load!(bus::Int64, network_data::Dict{String,Any})
     end
 end
 
+"""
+    delete_generator!(bus::Int64, network_data::Dict{String,Any})
+
+Deletes the generator associated with a user-specified bus.
+"""
 function delete_generator!(bus::Int64, network_data::Dict{String,Any})
     # Check if the specified bus exists
     check_bus_existence(bus, network_data)
@@ -166,6 +191,11 @@ function delete_generator!(bus::Int64, network_data::Dict{String,Any})
     end
 end
 
+"""
+    delete_line!(bus_from::Int64, bus_to::Int64, network_data::Dict{String,Any})
+
+Deletes the line between two user-specified buses.
+"""
 function delete_line!(bus_from::Int64, bus_to::Int64, network_data::Dict{String,Any})
     # Check if the specified buses exist
     for bus in (bus_from, bus_to)

@@ -1,3 +1,12 @@
+"""
+    change_bus_real_power_demand!(
+        new_pd::Union{Float64,Int64},
+        bus::Int64,
+        network_data::Dict{String,Any},
+    )
+
+Changes the real power demand (in per-unit) of an existing load at a user-specified bus.
+"""
 function change_bus_real_power_demand!(
     new_pd::Union{Float64,Int64},
     bus::Int64,
@@ -24,6 +33,15 @@ function change_bus_real_power_demand!(
     network_data["load"][string(d)]["pd"] = float(new_pd)
 end
 
+"""
+    change_bus_reactive_power_demand!(
+        new_qd::Union{Float64,Int64},
+        bus::Int64,
+        network_data::Dict{String,Any},
+    )
+
+Changes the reactive power demand (in per-unit) of an existing load at a user-specified bus.
+"""
 function change_bus_reactive_power_demand!(
     new_qd::Union{Float64,Int64},
     bus::Int64,
@@ -50,6 +68,16 @@ function change_bus_reactive_power_demand!(
     network_data["load"][string(d)]["qd"] = float(new_qd)
 end
 
+"""
+    change_bus_real_power_generation!(
+        new_pg::Union{Float64,Int64},
+        bus::Int64,
+        network_data::Dict{String,Any},
+    )
+
+Changes the real power generation (in per-unit) of an existing generator at a user-
+specified bus.
+"""
 function change_bus_real_power_generation!(
     new_pg::Union{Float64,Int64},
     bus::Int64,
@@ -76,6 +104,17 @@ function change_bus_real_power_generation!(
     network_data["gen"][string(g)]["pg"] = float(new_pg)
 end
 
+"""
+    change_bus_voltage_magnitude!(
+        new_vm::Union{Float64,Int64},
+        bus::Int64,
+        network_data::Dict{String,Any},
+    )
+
+Changes the voltage magnitude (in per-unit) of a user-specified bus. If a generator is also 
+located that the specified bus, the voltage magnitude setpoint is also updated to the same 
+value.
+"""
 function change_bus_voltage_magnitude!(
     new_vm::Union{Float64,Int64},
     bus::Int64,
@@ -108,6 +147,15 @@ function change_bus_voltage_magnitude!(
     network_data["bus"][string(bus)]["vm"] = float(new_vm)
 end
 
+"""
+    change_bus_voltage_angle!(
+        new_va::Union{Float64,Int64},
+        bus::Int64,
+        network_data::Dict{String,Any},
+    )
+
+Changes the voltage angle (in degrees) of a user-specified bus.
+"""
 function change_bus_voltage_angle!(
     new_va::Union{Float64,Int64},
     bus::Int64,
