@@ -1,0 +1,10 @@
+name = "TextbookSimulations"
+authors = ["Daniel S. Kirschen", "Lane D. Smith"]
+
+[deps]
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+PowerModels = "c36e90e8-916a-50a6-bd94-075b64ef4655"
+
+[compat]
+julia = "^1.6"
