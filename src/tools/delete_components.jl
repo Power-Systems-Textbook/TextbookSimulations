@@ -40,8 +40,8 @@ function delete_bus!(
     end
 
     # Check if there are lines connected to the specified bus
+    other_buses = Set()
     for l in keys(network_data["branch"])
-        other_buses = Set()
         if (network_data["branch"][l]["f_bus"] == bus) |
            (network_data["branch"][l]["t_bus"] == bus)
             push!(
@@ -100,11 +100,11 @@ function delete_bus!(
 
     # Update the bus IDs in the line data
     for i = 1:length(network_data["branch"])
-        if network_data["branch"][string(i)]["b_fr"] >= bus
-            network_data["branch"][string(i)]["b_fr"] -= 1
+        if network_data["branch"][string(i)]["f_bus"] >= bus
+            network_data["branch"][string(i)]["f_bus"] -= 1
         end
-        if network_data["branch"][string(i)]["t_fr"] >= bus
-            network_data["branch"][string(i)]["t_fr"] -= 1
+        if network_data["branch"][string(i)]["t_bus"] >= bus
+            network_data["branch"][string(i)]["t_bus"] -= 1
         end
     end
 end
