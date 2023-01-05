@@ -1,6 +1,8 @@
 function organize_bus_results(
     result::Dict{String,Any},
-    network_data::Dict{String,Any},
+    network_data::Dict{String,Any};
+    save_data::Bool=false,
+    file_path::Union{String,Nothing}=nothing,
 )::DataFrames.DataFrame
     # Find the real and reactive power demand at each bus
     pd_by_bus = zeros(length(network_data["bus"]))
@@ -41,13 +43,29 @@ function organize_bus_results(
         "Reactive Power Load (MVAR)" => qd_by_bus .* network_data["baseMVA"],
     )
 
+    # If specified, save the bus-level results
+    if save_data
+        if isnothing(file_path)
+            throw(
+                ErrorException(
+                    "A file path is not provided. Please provide a file path if you want " *
+                    "the bus-level results to be saved.",
+                ),
+            )
+        else
+            CSV.write(joinpath(file_path, "bus_results.csv"), bus_data)
+        end
+    end
+
     # Return the DataFrame
     return bus_data
 end
 
 function organize_line_results(
     result::Dict{String,Any},
-    network_data::Dict{String,Any},
+    network_data::Dict{String,Any};
+    save_data::Bool=false,
+    file_path::Union{String,Nothing}=nothing,
 )::DataFrames.DataFrame
     # Create DataFrame of the relevant line-related solutions
     line_data = DataFrame(
@@ -93,6 +111,20 @@ function organize_line_results(
             ] .* network_data["baseMVA"],
     )
 
+    # If specified, save the line-level results
+    if save_data
+        if isnothing(file_path)
+            throw(
+                ErrorException(
+                    "A file path is not provided. Please provide a file path if you want " *
+                    "the line-level results to be saved.",
+                ),
+            )
+        else
+            CSV.write(joinpath(file_path, "line_results.csv"), line_data)
+        end
+    end
+
     # Return the DataFrame
     return line_data
 end
@@ -119,7 +151,10 @@ function save_network_data(
             network_data["name"] = case_name
 
             # Save the network data as the specified file type in the specified file path
-            PowerModels.export_file(joinpath(file_path, case_name * file_type), network_data)
+            PowerModels.export_file(
+                joinpath(file_path, case_name * file_type),
+                network_data,
+            )
         else
             throw(
                 ErrorException(
