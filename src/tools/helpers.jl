@@ -57,6 +57,32 @@ function access_specified_generator(
     return nothing
 end
 
+function check_generator_for_slack_and_pv_buses(network_data::Dict{String,Any})
+    # Iterate through the buses
+    for b in keys(network_data["bus"])
+        # Check if the bus is a slack or PV bus
+        if network_data["bus"][b]["bus_type"] in (2, 3)
+            # Check if the slack or PV bus is in the list of buses with generators
+            if !(
+                parse(Int64, b) in
+                [network_data["gen"][g]["gen_bus"] for g in keys(network_data["gen"])]
+            )
+                # Raise an error if the slack or PV bus does not match with any generator
+                bus_type = network_data["bus"][b]["bus_type"] == 3 ? "slack" : "PV"
+                throw(
+                    ErrorException(
+                        "Though listed as a " *
+                        bus_type *
+                        " bus, Bus " *
+                        b *
+                        " does not contain a generator. Please try again.",
+                    ),
+                )
+            end
+        end
+    end
+end
+
 function check_if_bus_is_stranded(bus::Int64, network_data::Dict{String,Any})
     # Check if the specified bus exists
     check_bus_existence(bus, network_data)
