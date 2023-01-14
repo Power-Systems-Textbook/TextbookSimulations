@@ -1,5 +1,12 @@
-function mpc = uw_ee_454_project_data
-%PROJECT  Power flow data from UW EE 454 project.
+function mpc = uw_12_bus
+%UW_12_BUS  Power flow data for an example 12-bus, 5-generator test system.
+%
+%   This system is based on the test system used in Power System Analysis (EE 454), a senior-level 
+%   undergraduate course offered through the University of Washington's Department of Electrical and 
+%   Computer Engineering.
+%
+%   Please see MATPOWER's CASEFORMAT (https://matpower.org/docs/ref/matpower5.0/caseformat.html) 
+%   for details on the case-file format.
 
 %% MATPOWER Case Format : Version 2
 mpc.version = '2';
