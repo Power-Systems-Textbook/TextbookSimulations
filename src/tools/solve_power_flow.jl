@@ -1,11 +1,17 @@
 """
-    compute_ac_pf(network_data::Dict{String,Any})::Dict{String,Any}
+    compute_ac_pf(
+        network_data::Dict{String,Any};
+        show_trace::Bool=false,
+    )::Dict{String,Any}
 
 Creates a wrapper around functionality from PowerModels.jl to solve the AC power-flow 
 problem. Line flows are also calculated an returned along with the typical bus-level 
 solutions.
 """
-function compute_ac_pf(network_data::Dict{String,Any})::Dict{String,Any}
+function compute_ac_pf(
+    network_data::Dict{String,Any};
+    show_trace::Bool=false,
+)::Dict{String,Any}
     # Check that buses listed as slack and PV buses have generators
     check_generator_for_slack_and_pv_buses(network_data)
 
@@ -13,7 +19,7 @@ function compute_ac_pf(network_data::Dict{String,Any})::Dict{String,Any}
     check_for_stranded_buses(network_data)
 
     # Solve the AC power-flow model using PowerModels
-    result = PowerModels.compute_ac_pf(network_data)
+    result = PowerModels.compute_ac_pf(network_data; show_trace=show_trace)
 
     # Take a copy of the network data for use in calculating the line flows
     _network_data = deepcopy(network_data)
