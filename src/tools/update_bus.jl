@@ -5,7 +5,7 @@
         network_data::Dict{String,Any},
     )
 
-Changes the real power demand (in per-unit) of an existing load at a user-specified bus.
+Changes the real power demand (in MW) of an existing load at a user-specified bus.
 """
 function change_bus_real_power_demand!(
     new_pd::Union{Float64,Int64},
@@ -30,7 +30,7 @@ function change_bus_real_power_demand!(
     end
 
     # Update the real-power demand, in per-unit
-    network_data["load"][string(d)]["pd"] = float(new_pd)
+    network_data["load"][string(d)]["pd"] = float(new_pd) / network_data["baseMVA"]
 end
 
 """
@@ -40,7 +40,7 @@ end
         network_data::Dict{String,Any},
     )
 
-Changes the reactive power demand (in per-unit) of an existing load at a user-specified bus.
+Changes the reactive power demand (in MVAR) of an existing load at a user-specified bus.
 """
 function change_bus_reactive_power_demand!(
     new_qd::Union{Float64,Int64},
@@ -65,7 +65,7 @@ function change_bus_reactive_power_demand!(
     end
 
     # Update the reactive-power demand, in per-unit
-    network_data["load"][string(d)]["qd"] = float(new_qd)
+    network_data["load"][string(d)]["qd"] = float(new_qd) / network_data["baseMVA"]
 end
 
 """
@@ -75,7 +75,7 @@ end
         network_data::Dict{String,Any},
     )
 
-Changes the real power generation (in per-unit) of an existing generator at a user-
+Changes the real power generation (in MW) of an existing generator at a user-
 specified bus.
 """
 function change_bus_real_power_generation!(
@@ -101,7 +101,7 @@ function change_bus_real_power_generation!(
     end
 
     # Update the real-power generation, in per-unit
-    network_data["gen"][string(g)]["pg"] = float(new_pg)
+    network_data["gen"][string(g)]["pg"] = float(new_pg) / network_data["baseMVA"]
 end
 
 """
