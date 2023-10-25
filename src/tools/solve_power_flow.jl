@@ -15,6 +15,9 @@ function compute_ac_pf(
     # Check that buses listed as slack and PV buses have generators
     check_generator_for_slack_and_pv_buses(network_data)
 
+    # Check that there is a slack bus
+    check_slack_bus_existence!(network_data)
+
     # Prior to computation, check if any buses are stranded
     check_for_stranded_buses(network_data)
 

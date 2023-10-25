@@ -125,6 +125,53 @@ function check_generator_for_slack_and_pv_buses(network_data::Dict{String,Any})
 end
 
 """
+    check_slack_bus_existence!(
+        network_data::Dict{String,Any};
+        assign_slack::Union{Int64,Nothing}=nothing,
+    )
+
+Checks the existence of the slack bus in the provided network data. If it doesn't exist, 
+an error is thrown unless the user specifies a valid existing PV bus to be set as the 
+slack bus instead.
+"""
+function check_slack_bus_existence!(
+    network_data::Dict{String,Any};
+    assign_slack::Union{Int64,Nothing}=nothing,
+)
+    # Initialize an empty vector to track PV buses
+    pv_buses = zeros(0)
+
+    # Iterate through the buses, keeping track of PV buses or breaking if a slack bus is 
+    # identified
+    for b in keys(network_data["bus"])
+        if network_data["bus"][b]["bus_type"] == 2
+            append!(pv_buses, b)
+        elseif network_data["bus"][b]["bus_type"] == 3
+            return nothing
+        end
+    end
+
+    # If no slack bus exists, assign an existing bus to be the slack bus, if specified
+    if isnothing(assign_slack)
+        throw(ErrorException("There is no slack bus specified. Please try again."))
+    else
+        if assign_slack in pv_buses
+            network_data["bus"][b]["bus_type"] = assign_slack
+        else
+            throw(
+                ErrorException(
+                    "Bus " *
+                    string(assign_slack) *
+                    " is not a valid bus to be turned into the slack bus, either because " *
+                    "the bus is not a PV bus or because the bus does not exist. Please " *
+                    "try again.",
+                ),
+            )
+        end
+    end
+end
+
+"""
     check_if_bus_is_stranded(bus::Int64, network_data::Dict{String,Any})
 
 Checks if a specified bus is stranded (i.e., the bus is not connected to the other buses 

@@ -189,6 +189,9 @@ function delete_generator!(bus::Int64, network_data::Dict{String,Any})
             network_data["gen"][string(i)]["index"] = i
         end
     end
+
+    # Make sure the bus from which the generator is removed is changed to a PQ bus
+    network_data["bus"][string(bus)]["bus_type"] = 1
 end
 
 """

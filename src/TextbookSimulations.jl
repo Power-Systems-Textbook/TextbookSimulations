@@ -16,6 +16,7 @@ include("tools/output_data.jl")
 
 # Export functionality from helpers.jl
 export check_if_bus_is_stranded
+export check_slack_bus_existence!
 
 # Export functionality from input_data.jl
 export load_network_data

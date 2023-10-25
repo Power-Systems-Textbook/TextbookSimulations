@@ -346,6 +346,12 @@ function create_generator!(
         "pmin" => float(pmin),
         "apf" => float(apf),
     )
+
+    # Make sure the bus to which the generator is connected is a PV bus if it was 
+    # originally a PQ bus
+    if network_data["bus"][string(bus)]["bus_type"] == 1
+        network_data["bus"][string(bus)]["bus_type"] = 2
+    end
 end
 
 """
