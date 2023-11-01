@@ -27,7 +27,7 @@ end
 """
     create_blank_network(
         case_name::String,
-        base_mva::Int64,
+        base_mva::Int64;
         per_unit::Bool=true,
         mpc_version::Int64=2,
     )::Dict{String,Any}
