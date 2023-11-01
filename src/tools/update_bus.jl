@@ -112,7 +112,7 @@ end
     )
 
 Changes the voltage magnitude (in per-unit) of a user-specified bus. If a generator is also 
-located that the specified bus, the voltage magnitude setpoint is also updated to the same 
+located at the specified bus, the voltage magnitude set point is also updated to the same 
 value.
 """
 function change_bus_voltage_magnitude!(

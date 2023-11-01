@@ -5,7 +5,7 @@
     )::Dict{String,Any}
 
 Creates a wrapper around functionality from PowerModels.jl to solve the AC power-flow 
-problem. Line flows are also calculated an returned along with the typical bus-level 
+problem. Line flows are also calculated and returned along with the typical bus-level 
 solutions.
 """
 function compute_ac_pf(
