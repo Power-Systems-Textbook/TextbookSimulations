@@ -19,9 +19,9 @@ sufficient. If you do not have Python installed, the latest version of Python 3 
 installed [here](https://www.python.org/downloads/). Make sure that Python is added to your 
 PATH.
 
-    **NOTE:** With Python 3.11.0 being released very recently, wheels are not available for 
-    all of the libraries needed to set up the Jupyter notebook interface. Therefore, for 
-    new installations, we recommend installing the latest version of Python 3.10. For 
+    **NOTE:** With Python 3.12.0 being released very recently, wheels may not be available 
+    for all of the libraries needed to set up the Jupyter notebook interface. Therefore, 
+    for new installations, we recommend installing the latest version of Python 3.10. For 
     existing installations, we anticipate other minor versions of Python 3 to be sufficient 
     for operating this workflow.
 
@@ -32,8 +32,9 @@ PATH.
     python -m pip install notebook
     ```
 
-    The Jupyter notebook interface will now be able to be opened in your browser by running 
-    the following in command line or terminal:
+    Depending on how Python 3 has been added to your PATH, instances of `python` shown above 
+    may be replaced with `python3`. The Jupyter notebook interface will now be able to be 
+    opened in your browser by running the following in command line or terminal:
     
     ```sh
     jupyter notebook
