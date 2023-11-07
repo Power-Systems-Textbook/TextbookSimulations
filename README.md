@@ -65,13 +65,13 @@ clone the repository as follows:
     If you do not have Git installed on your machine, you can install it by following 
     instructions [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). 
     Alternatively, a .zip file of the repository can be downloaded 
-    [here](https://github.com/Power-Systems-Textbook/TextbookSimulations) and extracted to 
-    the directory of your choosing..
+    [here](https://github.com/Power-Systems-Textbook/TextbookSimulations/archive/refs/heads/main.zip) 
+    and extracted to the directory of your choosing.
 
 6. **Activate and instantiate the project environment.** Using the Julia REPL, navigate to 
-the local directory in which this repository is downloaded. Type `]` to open the Julia 
-REPL's pacakge manager mode, and run the following to ensure the necessary packages for the 
-project environment are installed:
+the local directory in which this repository is downloaded. Type `]` in the Julia REPL to 
+open the Julia REPL's package manager mode, and run the following to ensure the necessary 
+packages for the project environment are installed:
 
     ```
     activate .
