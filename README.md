@@ -54,8 +54,9 @@ package manager mode, and run the following:
     add IJulia
     ```
 
-5. **Clone this repository locally.** Using Git through the command line or terminal, clone 
-the repository as follows:
+5. **Clone this repository locally.** Git can be used to clone the repository or a .zip 
+file of the repository can be downloaded. Using Git through the command line or terminal, 
+clone the repository as follows:
 
     ```sh
     git clone https://github.com/Power-Systems-Textbook/TextbookSimulations.git
@@ -64,7 +65,8 @@ the repository as follows:
     If you do not have Git installed on your machine, you can install it by following 
     instructions [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). 
     Alternatively, a .zip file of the repository can be downloaded 
-    [here](https://github.com/Power-Systems-Textbook/TextbookSimulations).
+    [here](https://github.com/Power-Systems-Textbook/TextbookSimulations) and extracted to 
+    the directory of your choosing..
 
 6. **Activate and instantiate the project environment.** Using the Julia REPL, navigate to 
 the local directory in which this repository is downloaded. Type `]` to open the Julia 
