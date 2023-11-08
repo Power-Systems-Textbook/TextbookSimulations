@@ -55,8 +55,8 @@ package manager mode, and run the following:
     ```
 
 5. **Clone this repository locally.** Git can be used to clone the repository or a .zip 
-file of the repository can be downloaded. Using Git through the command line or terminal, 
-clone the repository as follows:
+file of the repository can be downloaded and extracted. Using Git through the command line 
+or terminal, clone the repository as follows:
 
     ```sh
     git clone https://github.com/Power-Systems-Textbook/TextbookSimulations.git
